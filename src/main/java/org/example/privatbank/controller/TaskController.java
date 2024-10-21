@@ -1,11 +1,18 @@
 package org.example.privatbank.controller;
 
+import com.sun.syndication.feed.rss.Channel;
+import com.sun.syndication.io.WireFeedOutput;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.example.privatbank.dto.TaskDTO;
 import org.example.privatbank.model.Task;
+import org.example.privatbank.service.RssFeedService;
 import org.example.privatbank.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +26,16 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private RssFeedService rssFeedService;
+
     // 1. Create task
     @Operation(summary = "Create a new task", description = "Create a new task with the given details")
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        log.debug("Creating a new task: {}", task);
-        return taskService.createTask(task);
+    public ResponseEntity<Task> createTask(@Valid @RequestBody TaskDTO taskDTO) {
+        log.debug("Creating a new task: {}", taskDTO);
+        Task createdTask = taskService.createTask(taskDTO);
+        return ResponseEntity.ok(createdTask);
     }
 
     // 2. Delete task
@@ -46,9 +57,10 @@ public class TaskController {
     // 4. Update task fields
     @Operation(summary = "Update task fields", description = "Update specific fields of a task")
     @PatchMapping("/{id}")
-    public Task updateTaskFields(@PathVariable Long id, @RequestBody Task updatedTask) {
+    public ResponseEntity<Task> updateTaskFields(@PathVariable Long id, @Valid @RequestBody TaskDTO taskDTO) {
         log.debug("Updating fields of task with ID: {}", id);
-        return taskService.updateTaskFields(id, updatedTask);
+        Task updatedTask = taskService.updateTaskFields(id, taskDTO);
+        return ResponseEntity.ok(updatedTask);
     }
 
     // 5. Get list of tasks
@@ -57,5 +69,12 @@ public class TaskController {
     public List<Task> getAllTasks() {
         log.debug("Retrieving all tasks");
         return taskService.getAllTasks();
+    }
+
+    @GetMapping(value = "/rss", produces = MediaType.APPLICATION_XML_VALUE)
+    public String getRssFeed() throws Exception {
+        Channel channel = rssFeedService.generateFeed();
+        WireFeedOutput output = new WireFeedOutput();
+        return output.outputString(channel);
     }
 }
