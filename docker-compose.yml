@@ -1,0 +1,50 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/taskmanager
+      - POSTGRES_DB=taskmanager
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=your_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  taskmanager-app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      # Primary H2 Database Configuration
+      - SPRING_DATASOURCE_URL=jdbc:h2:file:/data/testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.h2.Driver
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=
+
+      # Backup PostgreSQL Database Configuration
+      - BACKUP_DATASOURCE_URL=jdbc:postgresql://postgres:5432/taskmanager
+      - BACKUP_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - BACKUP_DATASOURCE_USERNAME=postgres
+      - BACKUP_DATASOURCE_PASSWORD=your_password
+
+      # Enable H2 Console
+      - SPRING_H2_CONSOLE_ENABLED=true
+      - SPRING_H2_CONSOLE_PATH=/h2-console
+
+      # Application Properties
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
+    ports:
+      - "8080:8080"
+    links:
+      - postgres
+
+volumes:
+  pgdata:
+  h2data:
+
+
