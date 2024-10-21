@@ -25,7 +25,7 @@ Follow the steps below to start the project from the console:
 
 ```bash
 git clone https://github.com/RomanPilyushin/Privatbank.git
-cd Hacken
+cd Privatbank
 ````
 
 ### 2. **Run the application**
@@ -52,21 +52,18 @@ Swagger UI provides a user-friendly interface for exploring the API endpoints an
 
 #### RSS
 
-You can check the H2 database using the browser.
+You can check the rss-feed of the application using the endpoint.
 
 - URL: [http://localhost:8080/h2-console/](http://localhost:8080/h2-console/)
-
-This links provides H2 Console.
 
 ![img_2.png](img_2.png)
 
 #### H2 Console
 
-You can check the rss-feed of the application using the endpoint.
+You can check the H2 database using the browser.
 
 - URL: [http://localhost:8080/api/tasks/rss](http://localhost:8080/api/tasks/rss)
 
-This endpoint provides rss-feed.
 
 ![img_3.png](img_3.png)
 
