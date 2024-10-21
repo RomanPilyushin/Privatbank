@@ -8,7 +8,9 @@ RUN mvn dependency:go-offline  # Download dependencies to speed up builds
 
 # Copy source code and build the application
 COPY src ./src
-RUN mvn clean install -DskipTests  # Skip tests for faster build
+# RUN mvn clean install -DskipTests  # Skip tests for faster build
+# RUN mvn clean test # Run tests (Jacoco - target/site/jacoco/index.html)
+RUN mvn clean install
 
 # Build final image
 FROM openjdk:17-jdk-slim
