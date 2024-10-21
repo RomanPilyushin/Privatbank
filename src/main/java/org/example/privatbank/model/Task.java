@@ -1,8 +1,8 @@
 package org.example.privatbank.model;
 
-import jakarta.persistence.*; // Import for JPA annotations
-import lombok.Data; // Import for Lombok's @Data annotation
-import lombok.NoArgsConstructor; // Import for Lombok's @NoArgsConstructor
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Entity representing a task in the system.

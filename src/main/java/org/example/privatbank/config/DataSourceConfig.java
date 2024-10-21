@@ -1,10 +1,10 @@
 package org.example.privatbank.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*; // Import Spring's configuration annotations
-import org.springframework.jdbc.datasource.DriverManagerDataSource; // Import DataSource class
+import org.springframework.context.annotation.*;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource; // Import DataSource interface
+import javax.sql.DataSource;
 
 /**
  * Configuration class for setting up the application's data source.

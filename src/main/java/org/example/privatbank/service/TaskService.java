@@ -1,11 +1,11 @@
 package org.example.privatbank.service;
 
-import org.example.privatbank.dto.TaskDTO; // Import TaskDTO
-import org.example.privatbank.model.Task; // Import Task model
-import org.example.privatbank.repository.TaskRepository; // Import Task repository
-import org.springframework.beans.factory.annotation.Autowired; // Import for dependency injection
-import org.springframework.stereotype.Service; // Import for Service annotation
-import org.springframework.transaction.annotation.Transactional; // Import for transaction management
+import org.example.privatbank.dto.TaskDTO;
+import org.example.privatbank.model.Task;
+import org.example.privatbank.repository.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List; // Import for List
 

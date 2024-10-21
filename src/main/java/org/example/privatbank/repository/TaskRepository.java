@@ -1,7 +1,7 @@
 package org.example.privatbank.repository;
 
-import org.example.privatbank.model.Task; // Import Task entity
-import org.springframework.data.jpa.repository.JpaRepository; // Import JPA repository
+import org.example.privatbank.model.Task;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Repository interface for Task entity.

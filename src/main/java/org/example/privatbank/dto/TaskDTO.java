@@ -1,8 +1,8 @@
 package org.example.privatbank.dto;
 
-import jakarta.validation.constraints.NotBlank; // Import for validation
-import jakarta.validation.constraints.Size; // Import for size constraint
-import lombok.Data; // Import for Lombok's @Data annotation
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 /**
  * Data Transfer Object for Task.

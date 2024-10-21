@@ -1,21 +1,21 @@
 package org.example.privatbank.controller;
 
-import com.sun.syndication.feed.rss.Channel; // Import RSS Channel class
-import com.sun.syndication.io.WireFeedOutput; // Import class for RSS feed output
-import io.swagger.v3.oas.annotations.Operation; // Import for Swagger annotations
-import io.swagger.v3.oas.annotations.tags.Tag; // Import for Swagger tags
-import jakarta.validation.Valid; // Import for validation
-import lombok.extern.slf4j.Slf4j; // Import for logging
-import org.example.privatbank.dto.TaskDTO; // Import TaskDTO
-import org.example.privatbank.model.Task; // Import Task model
-import org.example.privatbank.service.RssFeedService; // Import RSS feed service
-import org.example.privatbank.service.TaskService; // Import Task service
-import org.springframework.beans.factory.annotation.Autowired; // Import for dependency injection
-import org.springframework.http.MediaType; // Import for media types
-import org.springframework.http.ResponseEntity; // Import for HTTP responses
-import org.springframework.web.bind.annotation.*; // Import for REST annotations
+import com.sun.syndication.feed.rss.Channel;
+import com.sun.syndication.io.WireFeedOutput;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.example.privatbank.dto.TaskDTO;
+import org.example.privatbank.model.Task;
+import org.example.privatbank.service.RssFeedService;
+import org.example.privatbank.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List; // Import for List
+import java.util.List;
 
 /**
  * REST controller for managing tasks.

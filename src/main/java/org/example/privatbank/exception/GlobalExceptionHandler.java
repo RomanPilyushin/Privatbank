@@ -1,10 +1,10 @@
 package org.example.privatbank.exception;
 
-import org.springframework.http.HttpStatus; // Import for HTTP status codes
-import org.springframework.http.ResponseEntity; // Import for HTTP responses
-import org.springframework.web.bind.annotation.*; // Import for exception handling
-import org.springframework.web.context.request.WebRequest; // Import for web requests
-import org.springframework.web.bind.MethodArgumentNotValidException; // Import for validation exceptions
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.HashMap; // Import for HashMap
 import java.util.Map; // Import for Map

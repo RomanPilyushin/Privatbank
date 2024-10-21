@@ -1,14 +1,14 @@
 package org.example.privatbank.service;
 
-import com.sun.syndication.feed.rss.Channel; // Import for RSS Channel
-import com.sun.syndication.feed.rss.Description; // Import for RSS Description
-import com.sun.syndication.feed.rss.Item; // Import for RSS Item
-import org.example.privatbank.model.Task; // Import Task model
-import org.springframework.stereotype.Service; // Import for Service annotation
+import com.sun.syndication.feed.rss.Channel;
+import com.sun.syndication.feed.rss.Description;
+import com.sun.syndication.feed.rss.Item;
+import org.example.privatbank.model.Task;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList; // Import for ArrayList
-import java.util.Date; // Import for Date
-import java.util.List; // Import for List
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Service for generating RSS feeds from tasks.
