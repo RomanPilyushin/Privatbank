@@ -136,9 +136,23 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testDeleteTask() throws Exception {
+    public void testDeleteTaskSuccess() throws Exception {
+        // Simulate successful deletion
+        doNothing().when(taskService).deleteTask(1L);
+
         mockMvc.perform(delete("/api/tasks/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("{\"message\": \"Task deleted successfully\"}"));
+    }
+
+    @Test
+    public void testDeleteTaskNotFound() throws Exception {
+        // Simulate task not found
+        doThrow(new RuntimeException("Task not found")).when(taskService).deleteTask(1L);
+
+        mockMvc.perform(delete("/api/tasks/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("{\"message\": \"Task not found\"}"));
     }
 
     @Test

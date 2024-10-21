@@ -111,12 +111,29 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testDeleteTask() {
+    public void testDeleteTaskSuccess() {
+        // Simulate task exists
+        when(taskRepository.existsById(1L)).thenReturn(true);
         doNothing().when(taskRepository).deleteById(1L);
 
         taskService.deleteTask(1L);
 
+        // Verify that the delete method was called
         verify(taskRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void testDeleteTaskNotFound() {
+        // Simulate task not found
+        when(taskRepository.existsById(1L)).thenReturn(false);
+
+        // Expect RuntimeException to be thrown
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            taskService.deleteTask(1L);
+        });
+
+        // Verify the exception message
+        assertEquals("Task not found", exception.getMessage());
     }
 
     @Test

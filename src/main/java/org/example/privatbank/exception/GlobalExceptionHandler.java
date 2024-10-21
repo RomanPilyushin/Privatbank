@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.util.HashMap; // Import for HashMap
-import java.util.Map; // Import for Map
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Global exception handler for handling exceptions across the application.

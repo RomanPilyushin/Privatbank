@@ -54,7 +54,7 @@ Swagger UI provides a user-friendly interface for exploring the API endpoints an
 
 You can check the rss-feed of the application using the endpoint.
 
-- URL: [http://localhost:8080/h2-console/](http://localhost:8080/h2-console/)
+- URL: [http://localhost:8080/api/tasks/rss](http://localhost:8080/api/tasks/rss)
 
 ![img_2.png](img_2.png)
 
@@ -62,8 +62,7 @@ You can check the rss-feed of the application using the endpoint.
 
 You can check the H2 database using the browser.
 
-- URL: [http://localhost:8080/api/tasks/rss](http://localhost:8080/api/tasks/rss)
-
+- URL: [http://localhost:8080/h2-console/](http://localhost:8080/h2-console/)
 
 ![img_3.png](img_3.png)
 

@@ -3,6 +3,7 @@ package org.example.privatbank.service;
 import com.sun.syndication.feed.rss.Channel;
 import com.sun.syndication.feed.rss.Description;
 import com.sun.syndication.feed.rss.Item;
+import lombok.extern.slf4j.Slf4j;
 import org.example.privatbank.model.Task;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * Service for generating RSS feeds from tasks.
  */
+@Slf4j
 @Service
 public class RssFeedService {
 
@@ -25,8 +27,10 @@ public class RssFeedService {
      * @param task the task to add
      */
     public void addTaskToFeed(Task task) {
+        log.debug("Adding task to RSS feed: {}", task.getTitle());
         // Add the task to the tasks list
         tasks.add(task);
+        log.info("Task '{}' added to RSS feed", task.getTitle());
     }
 
     /**
@@ -35,6 +39,7 @@ public class RssFeedService {
      * @return the RSS feed channel
      */
     public Channel generateFeed() {
+        log.debug("Generating RSS feed with {} tasks", tasks.size());
         // Create a new RSS channel
         Channel channel = new Channel();
         // Set the feed type to RSS 2.0
@@ -50,6 +55,7 @@ public class RssFeedService {
         List<Item> items = new ArrayList<>();
         // Loop through the tasks to create RSS items
         for (Task task : tasks) {
+            log.debug("Creating RSS item for task: {}", task.getTitle());
             // Create a new RSS item
             Item item = new Item();
             // Set the title of the item to the task title
@@ -66,10 +72,12 @@ public class RssFeedService {
             item.setDescription(description);
             // Add the item to the items list
             items.add(item);
+            log.info("RSS item created for task: {}", task.getTitle());
         }
 
         // Set the items of the channel to the items list
         channel.setItems(items);
+        log.info("RSS feed generated with {} items", items.size());
         // Return the generated RSS channel
         return channel;
     }

@@ -1,5 +1,6 @@
 package org.example.privatbank.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
  * Configuration class for setting up the application's data source.
  * Attempts to connect to H2 database first; if it fails, switches to PostgreSQL.
  */
+@Slf4j
 @Configuration
 public class DataSourceConfig {
 
@@ -68,15 +70,19 @@ public class DataSourceConfig {
             dataSource.setUsername(h2Username);
             // Set the password for H2
             dataSource.setPassword(h2Password);
+
             // Try to establish a connection to H2
             dataSource.getConnection().close();
-            // If successful, print a confirmation message
-            System.out.println("Connected to H2 database.");
+
+            // Log a successful connection to H2
+            log.info("Connected to H2 database.");
+
             // Return the configured H2 DataSource
             return dataSource;
         } catch (Exception e) {
-            // If connection to H2 fails, print an error message
-            System.err.println("Failed to connect to H2. Switching to PostgreSQL.");
+            // Log the failure to connect to H2 and fallback to PostgreSQL
+            log.error("Failed to connect to H2. Switching to PostgreSQL.", e);
+
             // Create a new DataSource for PostgreSQL
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             // Set the driver class name for PostgreSQL
@@ -87,6 +93,10 @@ public class DataSourceConfig {
             dataSource.setUsername(postgresUsername);
             // Set the password for PostgreSQL
             dataSource.setPassword(postgresPassword);
+
+            // Log the switch to PostgreSQL
+            log.info("Connected to PostgreSQL database.");
+
             // Return the configured PostgreSQL DataSource
             return dataSource;
         }

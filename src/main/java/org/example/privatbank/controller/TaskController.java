@@ -11,6 +11,7 @@ import org.example.privatbank.model.Task;
 import org.example.privatbank.service.RssFeedService;
 import org.example.privatbank.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,10 +46,14 @@ public class TaskController {
     public ResponseEntity<Task> createTask(@Valid @RequestBody TaskDTO taskDTO) {
         // Log the creation of a new task
         log.debug("Creating a new task: {}", taskDTO);
-        // Use the task service to create a task
-        Task createdTask = taskService.createTask(taskDTO);
-        // Return the created task in the response
-        return ResponseEntity.ok(createdTask);
+        try {
+            Task createdTask = taskService.createTask(taskDTO);
+            log.info("Task created successfully: {}", createdTask);
+            return ResponseEntity.ok(createdTask);
+        } catch (Exception e) {
+            log.error("Error occurred while creating task: {}", taskDTO, e);
+            throw e;
+        }
     }
 
     /**
@@ -58,11 +63,17 @@ public class TaskController {
      */
     @Operation(summary = "Delete a task", description = "Delete a task by its ID")
     @DeleteMapping("/{id}")
-    public void deleteTask(@PathVariable Long id) {
-        // Log the deletion of the task
-        log.debug("Deleting task with ID: {}", id);
-        // Use the task service to delete the task
-        taskService.deleteTask(id);
+    public ResponseEntity<?> deleteTask(@PathVariable Long id) {
+        log.debug("Request received to delete task with ID: {}", id);
+
+        try {
+            taskService.deleteTask(id);
+            return ResponseEntity.ok("{\"message\": \"Task deleted successfully\"}");
+        } catch (RuntimeException e) {
+            log.error("Error while deleting task: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"message\": \"Task not found\"}");
+        }
     }
 
     /**
@@ -77,8 +88,14 @@ public class TaskController {
     public Task updateTaskStatus(@PathVariable Long id, @RequestParam String status) {
         // Log the status update
         log.debug("Updating status of task with ID: {} to {}", id, status);
-        // Use the task service to update the task status
-        return taskService.updateTaskStatus(id, status);
+        try {
+            Task updatedTask = taskService.updateTaskStatus(id, status);
+            log.info("Task with ID {} updated to status {}", id, status);
+            return updatedTask;
+        } catch (Exception e) {
+            log.error("Error occurred while updating status of task with ID: {}", id, e);
+            throw e;
+        }
     }
 
     /**
@@ -93,10 +110,14 @@ public class TaskController {
     public ResponseEntity<Task> updateTaskFields(@PathVariable Long id, @Valid @RequestBody TaskDTO taskDTO) {
         // Log the field update
         log.debug("Updating fields of task with ID: {}", id);
-        // Use the task service to update task fields
-        Task updatedTask = taskService.updateTaskFields(id, taskDTO);
-        // Return the updated task in the response
-        return ResponseEntity.ok(updatedTask);
+        try {
+            Task updatedTask = taskService.updateTaskFields(id, taskDTO);
+            log.info("Task with ID {} updated with new fields", id);
+            return ResponseEntity.ok(updatedTask);
+        } catch (Exception e) {
+            log.error("Error occurred while updating fields of task with ID: {}", id, e);
+            throw e;
+        }
     }
 
     /**
@@ -109,8 +130,14 @@ public class TaskController {
     public List<Task> getAllTasks() {
         // Log retrieval of tasks
         log.debug("Retrieving all tasks");
-        // Use the task service to get all tasks
-        return taskService.getAllTasks();
+        try {
+            List<Task> tasks = taskService.getAllTasks();
+            log.info("Retrieved {} tasks", tasks.size());
+            return tasks;
+        } catch (Exception e) {
+            log.error("Error occurred while retrieving tasks", e);
+            throw e;
+        }
     }
 
     /**
@@ -121,11 +148,17 @@ public class TaskController {
      */
     @GetMapping(value = "/rss", produces = MediaType.APPLICATION_XML_VALUE)
     public String getRssFeed() throws Exception {
-        // Generate the RSS channel using the RSS feed service
-        Channel channel = rssFeedService.generateFeed();
-        // Create an output object for the feed
-        WireFeedOutput output = new WireFeedOutput();
-        // Return the feed as a string
-        return output.outputString(channel);
+        // Log RSS feed generation
+        log.debug("Generating RSS feed");
+        try {
+            Channel channel = rssFeedService.generateFeed();
+            WireFeedOutput output = new WireFeedOutput();
+            String rssFeed = output.outputString(channel);
+            log.info("RSS feed generated successfully");
+            return rssFeed;
+        } catch (Exception e) {
+            log.error("Error occurred while generating RSS feed", e);
+            throw e;
+        }
     }
 }
