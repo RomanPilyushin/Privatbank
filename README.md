@@ -48,13 +48,27 @@ Swagger UI provides a user-friendly interface for exploring the API endpoints an
 
 - URL: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
+![img_1.png](img_1.png)
+
 #### RSS
+
+You can check the H2 database using the browser.
+
+- URL: [http://localhost:8080/h2-console/](http://localhost:8080/h2-console/)
+
+This links provides H2 Console.
+
+![img_2.png](img_2.png)
+
+#### H2 Console
 
 You can check the rss-feed of the application using the endpoint.
 
 - URL: [http://localhost:8080/api/tasks/rss](http://localhost:8080/api/tasks/rss)
 
 This endpoint provides rss-feed.
+
+![img_3.png](img_3.png)
 
 ### 4. **Stop the application**
 
@@ -73,6 +87,66 @@ docker-compose down
 
 `server.port=8080`
 
+## REST API Commands with Descriptions
+
+### 1. Create Task
+
+- **Method**: POST
+- **Endpoint**: `/api/tasks`
+- **Input**: JSON object representing the new task
+
+````json
+{
+  "title": "Task Title",
+  "description": "Task Description",
+  "status": "Pending"
+}
+````
+
+- **Output**: The created task with its assigned ID
+
+### 2. Delete Task
+
+- **Method**: DELETE
+- **Endpoint**: `/api/tasks/{id}`
+- **Input**: Task ID in the URL path
+- **Output**: Confirmation of successful deletion (HTTP 200 OK)
+
+### 3. Update Task Status
+
+- **Method**: PUT
+- **Endpoint**: `/api/tasks/{id}/status`
+- **Input**:
+   - Task ID in the URL path
+   - `status` as a request parameter
+- **Example**: `/api/tasks/1/status?status=Completed`
+- **Output**: The updated task with the new status
+
+### 4. Update Task Fields
+
+- **Method**: PATCH
+- **Endpoint**: `/api/tasks/{id}`
+- **Input**:
+
+   - Task ID in the URL path
+   - JSON object with fields to update
+
+
+````json
+{
+   "title": "Updated Title",
+   "description": "Updated Description"
+}
+````
+
+- **Output**: The updated task with the changed fields
+
+### 5. Get List of Tasks
+
+- **Method**: GET
+- **Endpoint**: `/api/tasks`
+- **Input**: None
+- **Output**: List of all tasks in JSON format
 
 
 ## Project Structure
@@ -117,6 +191,17 @@ Privatbank/
 └── README.md                          # Project documentation
 
 ````
+
+## Test Coverage
+
+Test coverage for the **Privatbank** application can be found in the following location:
+
+**Jacoco Report**: The application uses **Jacoco** for generating code coverage reports during the testing process. After running the tests, a detailed report of the test coverage can be found at:
+````bash
+target/site/jacoco/index.html
+````
+
+![img.png](img.png)
 
 ## Key Features:
 
