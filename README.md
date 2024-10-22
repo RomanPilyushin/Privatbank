@@ -150,14 +150,10 @@ docker-compose down
 ```bash
 
 Privatbank/
-├── .idea/                            # IDE-specific files
-├── .mvn/                             # Maven wrapper files
-├── data/                             # Data directory (presumably for storing test or sample data)
-├── invalid/                          # Additional directory (possibly for invalid or temporary data)
-├── src/                              # Source files
-│   ├── main/                         # Main application source files
+├── src/                                     # Source files
+│   ├── main/                                # Main application source files
 │   │   ├── java/                     
-│   │   │   └── org.example.privatbank/       # Main application package
+│   │   │   └── org.example.privatbank/      # Main application package
 │   │   │       ├── controller/              # REST controllers
 │   │   │       │   └── TaskController       # Controller handling task-related operations
 │   │   │       ├── model/                   # Model classes representing entities
@@ -177,14 +173,14 @@ Privatbank/
 │           ├── TaskControllerTest           # Unit test for TaskController
 │           ├── TaskRepositoryTest           # Unit test for TaskRepository
 │           └── TaskServiceTest              # Unit test for TaskService
-├── target/                            # Compiled output files and generated sources
-├── .gitignore                         # Git ignore file
-├── Dockerfile                         # Dockerfile for containerizing the application
-├── docker-compose.yml                 # Docker Compose configuration for orchestrating containers
-├── mvnw                               # Maven wrapper script (Linux/macOS)
-├── mvnw.cmd                           # Maven wrapper script (Windows)
-├── pom.xml                            # Maven configuration file
-└── README.md                          # Project documentation
+├── target/                                  # Compiled output files and generated sources
+├── .gitignore                               # Git ignore file
+├── Dockerfile                               # Dockerfile for containerizing the application
+├── docker-compose.yml                       # Docker Compose configuration for orchestrating containers
+├── mvnw                                     # Maven wrapper script (Linux/macOS)
+├── mvnw.cmd                                 # Maven wrapper script (Windows)
+├── pom.xml                                  # Maven configuration file
+└── README.md                                # Project documentation
 
 ````
 
@@ -232,14 +228,4 @@ target/site/jacoco/index.html
 - **TaskService**: Contains the business logic for handling task-related operations.
 - **TaskRepository**: Handles database interactions for storing and retrieving task data.
 - **RssFeedService**: Responsible for creating and managing RSS feeds from tasks.
-
-### Application Workflow:
-
-1. Users or clients can interact with the REST API to perform task operations, such as creating a new task, updating an existing task's status, retrieving all tasks, or deleting a task.
-2. The application stores task data in a PostgreSQL (or H2) database.
-3. The RSS feed service can aggregate tasks and generate an RSS feed, allowing users to subscribe and receive updates on task changes.
-4. The application is designed to be containerized using Docker, making deployment and scaling easier.
-
-This app is ideal for simple task management and use cases where task updates need to be syndicated via RSS. The extensible architecture allows easy integration with other systems and can be scaled based on needs.
-
 
